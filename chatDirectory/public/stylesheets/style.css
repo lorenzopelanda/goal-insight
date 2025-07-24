@@ -1,0 +1,366 @@
+.background{
+  position: absolute;
+  bottom:0;
+  left:5vw;
+  object-fit: cover;
+  repeat: no-repeat;
+  height: 90%;
+  z-index:-1
+}
+#logout-container{
+  margin-top: 2vw;
+}
+.welcome-container{
+  margin-top: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#welcome{
+  font-size: 40px;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 500;
+
+}
+#logo-name {
+  font-size: 40px;
+  text-align: center;
+  font-family: Aoboshi One;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 400;
+}
+
+.form_container{
+  align-items: center;
+  justify-content: center;
+}
+
+#form-guest{
+  margin-top: 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: Saira;
+  font-weight: 400;
+  background-color: #cdcdcd;
+  border-radius: 6px;
+  padding:15px;
+}
+#username{
+  height: 30px;
+  border-radius: 10px;
+  width: 100%;
+}
+#logout{
+  font-size: 18px;
+  position: absolute;
+  top: 2vw;
+  right: 2vw;
+  width: 15vw;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 500;
+  background-color: #cdcdcd;
+
+}
+.login-div{
+  font-size: 18px;
+  position: absolute;
+  top: 2vw;
+  right: 2vw;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 500;
+}
+#login-btn{
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 500;
+  background-color: #2DCC70;
+  width: 5vw;
+  margin-left: 1vw;
+}
+.register-div{
+  margin-top: 1vh;
+  text-align: center;
+  justify-content: center;
+  font-style: italic;
+  font-size: 18px;
+  font-family: Roboto;
+  font-weight: 400;
+}
+#register-btn{
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 400;
+  background-color: #cdcdcd;
+  text-wrap: nowrap;
+  width: 6vw;
+  margin-left: 0.5vw;
+}
+
+#guest-access{
+
+  margin-top:2vh;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 500;
+}
+
+.inputBox1,
+.inputBox2 {
+  display: grid;
+  grid-gap: 1vw;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.inputBox1 {
+  grid-template-columns: 0.5fr 0.7fr 1fr;
+  padding-bottom: 4vh;
+}
+
+.inputBox2 {
+  padding-top: 1vh;
+  grid-template-columns: 0.5fr 3fr 1fr;
+}
+
+.form-btn {
+  box-sizing: border-box;
+  width: 150px;
+  height: 100%;
+  margin: 0;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 500;
+  background-color: #2DCC70;
+}
+.form-btn:hover {
+  background-color: white;
+}
+
+.chat-info {
+  margin-top: 1vw;
+  padding: 5px;
+  display: flex;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: Roboto;
+  font-weight: 400;
+}
+
+#who_you_are {
+  font-style: normal;
+  font-weight: 500;
+}
+
+#message_container{
+  background-color: #e8e8e8;
+  border-radius: 6px;
+  width: 50vw;
+  margin:auto;
+  align-items: center;
+  justify-content: center;
+}
+.hidden{
+  display: none;
+}
+#chat_box{
+  margin-bottom: 5vw;
+  text-align: center;
+  align-items: center;
+  font-size: 18px;
+  font-family: Saira;
+  font-weight: 400;
+
+}
+#new_message{
+  flex-wrap:nowrap;
+  font-size: 18px;
+  font-family: Saira;
+  font-weight: 600;
+}
+#chat_input{
+  width:40%;
+  height: 30px;
+  border-radius: 10px;
+}
+#chat_history {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#chat_history p {
+  display: inline-block;
+  padding: 10px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.own-message {
+  box-shadow: 0px 4px 8px #efefef;
+  border: 2px solid #2dcc70;
+  margin-left: auto;
+  margin-bottom:0px;
+  width:20vw;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  white-space: normal;
+  justify-self: end; /* Allinea a destra */
+  overflow-wrap:break-word ;
+}
+.own-message-dates{
+  margin-left: auto;
+  justify-self: end;
+  margin-bottom: 8px;
+}
+.join-message {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+  box-shadow: none;
+  max-width: 50%;
+  padding: 5px;
+  margin: 0 auto;
+  justify-self: center; /* Allinea al centro */
+}
+.join-message-dates{
+  margin: auto;
+  justify-self: center;
+  margin-bottom: 8px;
+}
+.left-message {
+  word-break: break-all;
+  margin-bottom:0px;
+  word-wrap: break-word;
+  white-space: normal;
+  box-shadow: none;
+  max-width: 50%;
+  padding: 5px;
+  font-weight: 500;
+  color: #7b7b7b;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  justify-self: center; /* Allinea al centro */
+}
+.left-message-dates{
+    margin: auto;
+    justify-self: center;
+    margin-bottom: 8px;
+}
+.other-message {
+  word-break: break-all;
+  margin-bottom:0px;
+  box-shadow: 0px 4px 8px #cdcdcd;
+  border: 2px solid #000000;
+  background-color: #efefef;
+  width:20vw;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  white-space: normal;
+  justify-self: start; /* Allinea a sinistra */
+  overflow-wrap:break-word ;
+
+}
+.other-message-dates{
+  justify-self: start;
+  margin-bottom: 8px;
+}
+.message-dates {
+  font-size: 13px;
+  color: #888; /* Cambia il colore del font */
+  display: block;
+}
+
+#chat_box p {
+  display: flex;
+  width: auto;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+  padding-left: 10px;
+  gap: 10px;
+}
+#chat_send{
+  box-sizing: border-box;
+  width: 150px;
+  height: 100%;
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 500;
+  background-color: #2DCC70;
+}
+#userCountRooms{
+  font-size: 20px;
+  padding: 5px;
+}
+.online-users{
+  height: 40px;
+}
+.live-users{
+  height: 50px;
+}
+#back-to-chat-homepage{
+  box-sizing: border-box;
+  width: 150px;
+  height: 100%;
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 500;
+  background-color: #cdcdcd;
+}
+#back-to-chat-homepage:hover,#chat_send:hover,#form-guest-btn:hover{
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+#back-to-chat-homepage:active,#chat_send:active,#form-guest-btn:active{
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  background-color: #e8e8e8;
+}
+@media (max-width: 1520px){
+  .background{
+    position: absolute;
+    bottom:0;
+    left:5vw;
+    object-fit: cover;
+    repeat: no-repeat;
+    height: 80%;
+    z-index:-1;
+  }
+
+}
