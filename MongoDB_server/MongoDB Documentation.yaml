@@ -1,0 +1,716 @@
+openapi: 3.0.3
+info:
+  title: MongoDB Server Documentation
+  description: MongoDB Server Documentation for the website for IUMTWEB
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:3001'
+    description: Local server
+paths:
+  "/import-games":
+    "post":
+      "tags":
+        - "Import of data"
+      "summary": "Import of the data "
+      "description": "Query to import the data from the games.csv table inside the MongoDB database"
+      "operationId": "import-games"
+      "responses":
+        "200":
+          "description": "Successful import of the data"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "message":
+                    "type": "string"
+                    "description": "A message indicating the result of the data import operation."
+        "500":
+          "description": "Error occurred during data import"
+          "content":
+           "application/json":
+            "schema":
+              "type": "object"
+              "properties":
+                 "error":
+                  "type": "string"
+                  "description": "A message indicating the error that occurred during the data import operation."
+  "/import-clubgames":
+    "post":
+      "tags":
+        - "Import of data"
+      "summary": "Import of the data "
+      "description": "Query to import the data from the club_games.csv table inside the MongoDB database"
+      "operationId": "import-clubgames"
+      "responses":
+        "200":
+          "description": "Successful import of the data"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "message":
+                    "type": "string"
+                    "description": "A message indicating the result of the data import operation."
+        "500":
+          "description": "Error occurred during data import"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the data import operation."
+  "/import-appearances":
+    "post":
+      "tags":
+        - "Import of data"
+      "summary": "Import of the data "
+      "description": "Query to import the data from the appearances.csv table inside the MongoDB database"
+      "operationId": "import-appearances"
+      "responses":
+        "200":
+          "description": "Successful import of the data"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "message":
+                    "type": "string"
+                    "description": "A message indicating the result of the data import operation."
+        "500":
+          "description": "Error occurred during data import"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the data import operation."
+  "/import-gameevents":
+    "post":
+      "tags":
+        - "Import of data"
+      "summary": "Import of the data "
+      "description": "Query to import the data from the game_events.csv table inside the MongoDB database"
+      "operationId": "import-gameevents"
+      "responses":
+        "200":
+          "description": "Successful import of the data"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "message":
+                    "type": "string"
+                    "description": "A message indicating the result of the data import operation."
+        "500":
+          "description": "Error occurred during data import"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the data import operation."
+  "/clubgame-byid?game_id={id}":
+    "get":
+      "tags":
+        - "Club_games"
+      "summary": "Get the games a specific club played in"
+      "description": "Query to get the games a specific club took part in. The club_id is passed as a parameter to the query."
+      "operationId": "clubgame-byid"
+      "parameters":
+        - "name": "id"
+          "in": "id"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "club_id of the selected club"
+      "responses":
+        "200":
+          "description": "Successfully obtained the games"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "game_id":
+                    "type": "integer"
+                    "description": "The id of the game"
+                  "club_id":
+                    "type": "integer"
+                    "description": "The id of the club"
+                  "own_goals":
+                    "type": "integer"
+                    "description": "The number of own goals scored by the club"
+                  "opponent_id":
+                    "type": "integer"
+                    "description": "The id of the opponent club"
+                  "opponent_goals":
+                    "type": "integer"
+                    "description": "The number of goals scored by the opponent club"
+                  "hosting":
+                    "type": "string"
+                    "format": "enum['Home','Away']"
+                    "description": "The club that hosted the game"
+                  "is_win":
+                    "type": "integer"
+                    "format": "enum[0,1]"
+                    "description": "A boolean indicating if the club won the game"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+  "/clubgame-mostappearedclubs":
+    "get":
+      "tags":
+        - "Club_games"
+      "summary": "Get the 10 most popular clubs in the database"
+      "description": "Query to get the 10 most popular clubs in the database, the query is based on the number of appearances of each club. The club with most played games are in the result"
+      "operationId": "clubgame-mostappearedclubs"
+      "responses":
+        "200":
+          "description": "Successfully obtained the clubs"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                    "club_id":
+                        "type": "integer"
+                        "description": "The id of the club"
+                    "totalFrequency":
+                        "type": "integer"
+                        "description": "The number of thimes the club appeared in the database"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+  "/game_events-bygameid?game_id={id}":
+    "get":
+      "tags":
+        - "Game_events"
+      "summary": "Get the events of a specific game"
+      "description": "Query to get all the events of a specified game"
+      "operationId": "game_events-bygameid"
+      "parameters":
+        - "name": "id"
+          "in": "id"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "game_id of the selected game"
+      "responses":
+        "200":
+          "description": "Successfully obtained the events"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "date":
+                    "type": "string"
+                    "format": "date"
+                    "description": "the date of a game"
+                  "game_id":
+                    "type": "integer"
+                    "description": "The ID of the specific game"
+                  "minute":
+                    "type": "integer"
+                    "description": "The minute when the event appened"
+                  "type":
+                    "type": "string"
+                    "description": "The type of the event"
+                  "club_id":
+                    "type": "integer"
+                    "description": "The ID of the club that the event is related to"
+                  "player_id":
+                    "type": "integer"
+                    "description": "The ID of the player that the event is related to"
+                  "description":
+                    "type": "string"
+                    "description": "A description of the event"
+                  "name":
+                    "type": "string"
+                    "description": "The name of the player that the event is related to"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+  "/game_events-byplayerid?player_id={id}":
+    "get":
+      "tags":
+        - "Game_events"
+      "summary": "Get the events for a specific player"
+      "description": "Query to get all the events of a specified player"
+      "operationId": "game_events-byplayerid"
+      "parameters":
+        - "name": "id"
+          "in": "id"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "player_id of the selected player"
+      "responses":
+        "200":
+          "description": "Successfully obtained the events"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "date":
+                    "type": "string"
+                    "format": "date"
+                    "description": "the date of a game"
+                  "game_id":
+                    "type": "integer"
+                    "description": "The ID of the specific game when the event appened"
+                  "minute":
+                    "type": "integer"
+                    "description": "The minute when the event appened"
+                  "type":
+                    "type": "string"
+                    "description": "The type of the event"
+                  "club_id":
+                    "type": "integer"
+                    "description": "The ID of the club that the event is related to"
+                  "player_id":
+                    "type": "integer"
+                    "description": "The ID of the player that the event is related to"
+                  "description":
+                    "type": "string"
+                    "description": "A description of the event"
+                  "name":
+                    "type": "string"
+                    "description": "The name of the player that the event is related to"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+
+  "/games-byclubid?game_id={id}":
+    "get":
+      "tags":
+        - "Games"
+      "summary": "Get all the games played by a club"
+      "description": "Query to get all the games played by the selected club"
+      "operationId": "games-byclubid"
+      "parameters":
+        - "name": "id"
+          "in": "id"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "club_id of the selected club"
+      "responses":
+        "200":
+          "description": "Successfully obtained the games"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+
+                  "game_id":
+                    "type": "integer"
+                    "description": "The ID of the specific game when the event appened"
+                  "competition_id":
+                    "type": "integer"
+                    "description": "The ID of the competition that the game is related to"
+                  "season":
+                    "type": "integer"
+                    "description": "The season of the game"
+                  "date":
+                    "type": "string"
+                    "format": "date"
+                    "description": "the date of a game"
+                  "home_club_id":
+                    "type": "integer"
+                    "description": "The ID of the home club"
+                  "away_club_id":
+                    "type": "integer"
+                    "description": "The ID of the away club"
+                  "stadium":
+                    "type": "string"
+                    "description": "The name of the stadium where the game was played"
+                  "referee":
+                    "type": "string"
+                    "description": "The name of the referee of the game"
+                  "home_club_name":
+                    "type": "string"
+                    "description": "The name of the home club"
+                  "away_club_name":
+                    "type": "string"
+                    "description": "The name of the away club"
+                  "aggregate":
+                    "type": "string"
+                    "description": "The aggregate of the game"
+
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+  "/games-detailsbyid?game_id={id}":
+    "get":
+      "tags":
+        - "Games"
+      "summary": "Get the principal details of a game"
+      "description": "Query to get essential details of a game"
+      "operationId": "games-detailsbyid"
+      "parameters":
+        - "name": "id"
+          "in": "id"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "game_id of the selected game"
+      "responses":
+        "200":
+          "description": "Successfully obtained the details"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+
+                  "game_id":
+                    "type": "integer"
+                    "description": "The ID of the specific game when the event appened"
+                  "competition_id":
+                    "type": "integer"
+                    "description": "The ID of the competition that the game is related to"
+                  "season":
+                    "type": "integer"
+                    "description": "The season of the game"
+                  "date":
+                    "type": "string"
+                    "format": "date"
+                    "description": "the date of a game"
+                  "home_club_id":
+                    "type": "integer"
+                    "description": "The ID of the home club"
+                  "away_club_id":
+                    "type": "integer"
+                    "description": "The ID of the away club"
+                  "stadium":
+                    "type": "string"
+                    "description": "The name of the stadium where the game was played"
+                  "referee":
+                    "type": "string"
+                    "description": "The name of the referee of the game"
+                  "home_club_name":
+                    "type": "string"
+                    "description": "The name of the home club"
+                  "away_club_name":
+                    "type": "string"
+                    "description": "The name of the away club"
+                  "aggregate":
+                    "type": "string"
+                    "description": "The aggregate of the game"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+
+  "/appearances-byplayerid?player_id={id}":
+    "get":
+      "tags":
+        - "Appearances"
+      "summary": "Get all the player appearances for a player"
+      "description": "Query to get all the appearances for a specified player giving the player_id"
+      "operationId": "appearances-byplayerid"
+      "parameters":
+        - "name": "id"
+          "in": "id"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "player_id of the selected player"
+      "responses":
+        "200":
+          "description": "Successfully obtained the appearances"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "game_id":
+                    "type": "integer"
+                    "description": "The ID of the game"
+                  "player_id":
+                    "type": "integer"
+                    "description": "The ID of the player"
+                  "player_club_id":
+                    "type": "integer"
+                    "description": "The ID of the club"
+                  "player_current_club_id":
+                    "type": "integer"
+                    "description": "The ID of the current club"
+                  "date":
+                    "type": "string"
+                    "format": "date"
+                    "description": "the date of the appearance"
+                  "player_name":
+                    "type": "string"
+                    "description": "The name of the player"
+                  "competition_id":
+                    "type": "integer"
+                    "description": "The ID of the competition that the game is related to"
+                  "yellow_cards":
+                    "type": "integer"
+                    "description": "The number of yellow cards the player received"
+                  "red_cards":
+                    "type": "integer"
+                    "description": "The number of red cards the player received"
+                  "goals":
+                    "type": "integer"
+                    "description": "The number of goals the player scored"
+                  "assists":
+                    "type": "integer"
+                    "description": "The number of assists the player made"
+                  "minutes_played":
+                    "type": "integer"
+                    "description": "The number of minutes the player played"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+  "/appearances-mostappearedplayers":
+    "get":
+      "tags":
+        - "Appearances"
+      "summary": "Get 10 most popular players by their appearances"
+      "description": "Query to get the 10 most popular players in the database, the query is based on the number of appearances of each player. The players with most appearances are in the result"
+      "operationId": "appearances-mostappearedplayers"
+      "responses":
+        "200":
+          "description": "Successfully obtained the players"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "totalAppearances":
+                    "type": "integer"
+                    "description": "The number of appearances of the player"
+                  "player_name":
+                    "type": "string"
+                    "description": "The name of the player"
+                  "player_id":
+                    "type": "integer"
+                    "description": "The ID of the player"
+        "500":
+          "description": "Error occurred during the searching"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "error":
+                    "type": "string"
+                    "description": "A message indicating the error that occurred during the query."
+components:
+  schemas:
+    ClubGames:
+      type: object
+      properties:
+        game_id:
+          type: integer
+          description: The id of the game
+        club_id:
+          type: integer
+          description: The id of the club
+        own_goals:
+          type: integer
+          description: The number of own goals scored by the club
+        manager_name:
+          type: string
+          description: The name of the manager of the club
+        opponent_id:
+          type: integer
+          description: The id of the opponent club
+        opponent_goals:
+          type: integer
+          description: The number of goals scored by the opponent club
+        hosting:
+          type: string
+          enum: ['Home', 'Away']
+          description: The club that hosted the game
+        is_win:
+          type: integer
+          enum: [0, 1]
+          description: A boolean indicating if the club won the game
+    GameEvents:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the game
+        game_id:
+          type: integer
+          description: The ID of the specific game
+        minute:
+          type: integer
+          description: The minute when the event happened
+        type:
+          type: string
+          description: The type of the event
+        club_id:
+          type: integer
+          description: The ID of the club that the event is related to
+        player_id:
+          type: integer
+          description: The ID of the player that the event is related to
+        description:
+          type: string
+          description: A description of the event
+        player_name:
+          type: string
+          description: The name of the player that the event is related to
+    Games:
+      type: object
+      properties:
+        game_id:
+          type: integer
+          description: The ID of the specific game
+        competition_id:
+          type: integer
+          description: The ID of the competition that the game is related to
+        season:
+          type: integer
+          description: The season of the game
+        round:
+          type: integer
+          description: The round of the game
+        date:
+          type: string
+          format: date
+          description: The date of the game
+        home_club_id:
+          type: integer
+          description: The ID of the home club
+        away_club_id:
+          type: integer
+          description: The ID of the away club
+        home_club_goals:
+          type: integer
+          description: The number of goals scored by the home club
+        away_club_goals:
+          type: integer
+          description: The number of goals scored by the away club
+        home_club_manager_name:
+          type: string
+          description: The name of the manager of the home club
+        away_club_manager_name:
+          type: string
+          description: The name of the manager of the away club
+        stadium:
+          type: string
+          description: The name of the stadium where the game was played
+        referee:
+          type: string
+          description: The name of the referee of the game
+        home_club_name:
+          type: string
+          description: The name of the home club
+        away_club_name:
+          type: string
+          description: The name of the away club
+        aggregate:
+          type: string
+          description: The aggregate of the game
+        competition_type:
+          type: string
+          description: The type of the competition
+    Appearances:
+      type: object
+      properties:
+        game_id:
+          type: integer
+          description: The ID of the game
+        player_id:
+          type: integer
+          description: The ID of the player
+        player_club_id:
+          type: integer
+          description: The ID of the club
+        player_current_club_id:
+          type: integer
+          description: The ID of the current club
+        date:
+          type: string
+          format: date
+          description: The date of the appearance
+        player_name:
+          type: string
+          description: The name of the player
+        competition_id:
+          type: integer
+          description: The ID of the competition that the game is related to
+        yellow_cards:
+          type: integer
+          description: The number of yellow cards the player received
+        red_cards:
+          type: integer
+          description: The number of red cards the player received
+        goals:
+          type: integer
+          description: The number of goals the player scored
+        assists:
+          type: integer
+          description: The number of assists the player made
+        minutes_played:
+          type: integer
+          description: The number of minutes the player played
+

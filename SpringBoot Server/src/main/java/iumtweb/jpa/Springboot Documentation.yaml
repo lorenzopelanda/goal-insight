@@ -1,0 +1,706 @@
+
+"openapi": "3.0.1"
+"info":
+  "title": "Documentation for Springboot server"
+  "description": "Documentation for the Springboot server to interact with the PostgreSQL database"
+  "version": "1.0.0"
+"servers":
+  - url: http://localhost:8081/
+    description: Local development server
+"paths":
+  "/club/getClubDetailsById/{id}":
+    "get":
+      "tags":
+        - "Club"
+      "summary": "Get the club details by ID"
+      "description": "Returns all the info of a Club from the database"
+      "operationId": "getClubDetailsById"
+      "parameters":
+        -
+          "name": "id"
+          "in": "path"
+          "required": true
+          "schema":
+            "type": "integer"
+          "description": "ID of the club to fetch"
+      "responses":
+        "200":
+          "description": "Club found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "club_id":
+                    "type": "integer"
+                    "format": "int64"
+                    "description": "The ID of the club."
+                  "name":
+                    "type": "string"
+                    "description": "The name of the club."
+                  "domestic_competition_id":
+                    "type": "string"
+                    "description": "The ID of the domestic competition the club participates in."
+                  "total_market_value":
+                    "type": "number"
+                    "format": "double"
+                    "nullable": true
+                    "description": "The total market value of the club."
+                  "stadium_name":
+                    "type": "string"
+                    "description": "The name of the club's stadium."
+                  "stadium_seats":
+                    "type": "integer"
+                    "description": "The number of seats in the club's stadium."
+                  "coach_name":
+                    "type": "string"
+                    "description": "The name of the club's coach."
+                  "last_season":
+                    "type": "integer"
+                    "description": "The last season's performance of the club."
+        "404":
+          "description": "Club not found"
+  "/club/getClubIdsAndNames":
+    "get":
+      "tags":
+        - "Club"
+      "summary": "Get a list of ClubIdAndNameDTO objects with pagination and sorting options"
+      "description": "Returns all the club_id and club_name in the database implementing a pagination method"
+      "operationId": "getClubIdsAndNames"
+      "parameters":
+        -
+          "name": "page"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "Page number of the results"
+        -
+          "name": "size"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 51
+          "description": "Number of results per page"
+        -
+          "name": "sortBy"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "name"
+          "description": "Field to sort by"
+        -
+          "name": "sortDirection"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "default"
+          "description": "Sort direction"
+      "responses":
+        "200":
+          "description": "Clubs found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  "type": "object"
+                  "properties":
+                    "club_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the club."
+                    "name":
+                      "type": "string"
+                      "description": "The name of the club."
+        "404":
+          "description": "Clubs not found"
+  "/club/searchClubs":
+    "get":
+      "tags":
+        - "Club"
+      "summary": "Get a list of ClubIdAndNameDTO objects that match the provided search query"
+      "description": "Returns all the Clubs matches the query in the database"
+      "operationId": "searchClubs"
+      "parameters":
+        -
+          "name": "query"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": ""
+          "description": "Search query to match against club names"
+        -
+          "name": "page"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "Page number of the results"
+        -
+          "name": "size"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 51
+          "description": "Number of results per page"
+        -
+          "name": "sortBy"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "name"
+          "description": "Field to sort by"
+        -
+          "name": "sortDirection"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "asc"
+          "description": "Sort direction"
+      "responses":
+        "200":
+          "description": "Clubs found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  "type": "object"
+                  "properties":
+                    "club_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the club."
+                    "name":
+                      "type": "string"
+                      "description": "The name of the club."
+        "404":
+          "description": "Clubs not found"
+  "/club/getCompetitionClubsById/{id}":
+    "get":
+      "tags":
+        - "Club"
+      "summary": "Get a list of ClubIdNameCompetitionDTO objects for a specific competition ID"
+      "description": "Return all the Clubs that are in the specified Competition, by passing the domestic_competition_id value"
+      "operationId": "getCompetitionClubsById"
+      "parameters":
+        -
+          "name": "id"
+          "in": "path"
+          "required": true
+          "schema":
+            "type": "string"
+          "description": "ID of the competition to fetch clubs for"
+      "responses":
+        "200":
+          "description": "Competition found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  "type": "object"
+                  "properties":
+                    "club_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the club."
+                    "name":
+                      "type": "string"
+                      "description": "The name of the club."
+                    "domestic_competition_id":
+                      "type": "string"
+                      "description": "The ID of the domestic competition the club participates in."
+        "404":
+          "description": "Competition not found"
+  "/competition/getCompetitionDetailsById/{id}":
+      "get":
+        "tags":
+          - "Competition"
+        "summary": "Get the competition ID, the competition name, the country ID, the country name and the domestic league code by ID"
+        "description": "Returns for a competition the ID, the name, the country ID, the country name and the domestic league code"
+        "parameters":
+          - "name": "id"
+            "in": "path"
+            "required": true
+            "schema":
+              "type": "integer"
+            "description": "ID of the competition to fetch"
+        "responses":
+          "200":
+            "description": "Competiton found"
+            "content":
+              "application/json":
+                "schema":
+                  "type": "object"
+                  "properties":
+                    "competition_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the competition."
+                    "name":
+                      "type": "string"
+                      "description": "The name of the competition."
+                    "country_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the country the competition takes place."
+                    "country_name":
+                      "type": "string"
+                      "description": "The name of the competition."
+                    "domestic_league_code":
+                      "type": "string"
+                      "description": "The league code of the competition."
+          "404":
+            "description": "Competition not found"
+  "/competition/getCompetitionIdsNamesCountries":
+      "get":
+        "tags":
+          - "Competition"
+        "summary": "Get all the competition ID, the competition name, the country name and the domestic league code by ID"
+        "description": "Returns all the competitions ID, name, country name and domestic league code"
+        "responses":
+          "200":
+            "description": "Competitons found"
+            "content":
+              "application/json":
+                "schema":
+                  "type": "object"
+                  "properties":
+                    "competition_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the competition."
+                    "name":
+                      "type": "string"
+                      "description": "The name of the competition."
+                    "country_name":
+                      "type": "string"
+                      "description": "The name of the competition."
+                    "domestic_league_code":
+                      "type": "string"
+                      "description": "The league code of the competition."
+          "404":
+            "description": "Competitions not found"
+  "/player/getPlayerDetailsById/{id}":
+    "get":
+      "tags":
+        - "Player"
+      "summary": "Get the player details by ID"
+      "description": "Returns all the info of a Player from the database"
+      "operationId": "getPlayerDetailsById"
+      "parameters":
+        - "name": "id"
+          "in": "path"
+          "required": true
+          "schema":
+            "type": "integer"
+          "description": "ID of the player to fetch"
+      "responses":
+        "200":
+          "description": "Player found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "player_id":
+                    "type": "integer"
+                    "format": "int64"
+                    "description": "The ID of the player."
+                  "name":
+                    "type": "string"
+                    "description": "The name of the player."
+                  "last_season":
+                    "type": "integer"
+                    format: "int64"
+                    "description": "The last played season for the player."
+                  "current_club_id":
+                    "type": "integer"
+                    "format": "int64"
+                    "description": "The current club id for the player."
+                  "country_of_citizenship":
+                    "type": "string"
+                    "description": "The name of the country, the player has the nationality."
+                  "date_of_birth":
+                    "type": "string"
+                    "format": "date"
+                    "description": "The date when the player born."
+                  "sub_position":
+                    "type": "string"
+                    "description": "The second type of position in the field for the player."
+                  "position":
+                    "type": "string"
+                    "description": "The principal position in the field for the player."
+                  "foot":
+                    "type": "string"
+                    "description": "The preferred foot to shoot."
+                  "height_in_cm":
+                    "type": "number"
+                    "format": "double"
+                    "description": "The height of the layer expressed in cm."
+                  "highest_market_value_in_eur":
+                    "type": "number"
+                    "format": "double"
+                    "description": "The heighest market value of the player of all time in eur."
+                  "image_url":
+                    "type": "string"
+                    "description": "An URL containing the player picture."
+                  "current_club_name":
+                    "type": "string"
+                    "description": "The name of the actual club the player is playing with."
+                  "contract_expiration":
+                    "type": "string"
+                    "format": "date"
+                    "description": "The date when the contract with the actual club end."
+                  "market_value_in_eur":
+                    "type": "number"
+                    "format": "double"
+                    "description": "The current market value of the player expressed in eur."
+        "404":
+          "description": "Player not found"
+  "/player/getPlayerIdsAndNames":
+    "get":
+      "tags":
+        - "Player"
+      "summary": "Get a list of PlayerIdAndNameDTO objects "
+      "description": "Returns all the player_id and player_name in the database"
+      "operationId": "getPlayerIdsAndNames"
+      "responses":
+        "200":
+          "description": "Player found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  "type": "object"
+                  "properties":
+                    "player_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the player."
+                    "player_name":
+                      "type": "string"
+                      "description": "The name of the player."
+        "404":
+          "description": "Player not found"
+  "/player/getPlayerIdsAndNamesPage":
+    "get":
+      "tags":
+        - "Player"
+      "summary": "Get a list of PlayerIdAndNameDTO objects with pagination and sorting options"
+      "description": "Returns all the Players in the database with a pagination and sorting system"
+      "operationId": "getPlayerIdsAndNamesPage"
+      "parameters":
+        - "name": "page"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "Page number of the results"
+        - "name": "size"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 51
+          "description": "Number of results per page"
+        - "name": "sortBy"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "name"
+          "description": "Field to sort by"
+        - "name": "sortDirection"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "default"
+          "description": "Sort direction"
+      "responses":
+        "200":
+          "description": "Player found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  "type": "object"
+                  "properties":
+                    "player_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the player."
+                    "player_name":
+                      "type": "string"
+                      "description": "The name of the player."
+        "404":
+          "description": "Player not found"
+  "/player/searchPlayers":
+    "get":
+      "tags":
+        - "Player"
+      "summary": "Get a list of PlayerIdAndNameDTO matching the query objects with pagination and sorting options"
+      "description": "Returns all the Players in the database that match the query, with a pagination and sorting system"
+      "operationId": "searchPlayers"
+      "parameters":
+        - "name": "query"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": ""
+          "description": "Search query to match against player names"
+        - "name": "page"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 0
+          "description": "Page number of the results"
+        - "name": "size"
+          "in": "query"
+          "schema":
+            "type": "integer"
+            "default": 51
+          "description": "Number of results per page"
+        - "name": "sortBy"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "name"
+          "description": "Field to sort by"
+        - "name": "sortDirection"
+          "in": "query"
+          "schema":
+            "type": "string"
+            "default": "asc"
+          "description": "Sort direction"
+      "responses":
+        "200":
+          "description": "Player found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  "type": "object"
+                  "properties":
+                    "player_id":
+                      "type": "integer"
+                      "format": "int64"
+                      "description": "The ID of the player."
+                    "player_name":
+                      "type": "string"
+                      "description": "The name of the player."
+        "404":
+          "description": "Player not found"
+  "/player/getPlayerIdNameClub/{id}":
+    "get":
+      "tags":
+        - "Player"
+      "summary": "Get the player ID, the player name, the player club, the image and the position by giving the club id"
+      "description": "Returns all the players playing in a specific club, it returns for a player: the player name, the player ID, the current club, the image and the position "
+      "operationId": "getPlayerIdNameClub"
+      "parameters":
+        - "name": "id"
+          "in": "path"
+          "required": true
+          "schema":
+            "type": "integer"
+          "description": "ID of club to fetch the players"
+      "responses":
+        "200":
+          "description": "Players found"
+          "content":
+            "application/json":
+              "schema":
+                "type": "object"
+                "properties":
+                  "player_id":
+                    "type": "integer"
+                    "format": "int64"
+                    "description": "The ID of the player."
+                  "name":
+                    "type": "string"
+                    "description": "The name of the player."
+                  "current_club_id":
+                    "type": "integer"
+                    "format": "int64"
+                    "description": "The current club id for the player."
+                  "image_url":
+                    "type": "string"
+                    "description": "An URL containing the player picture."
+                  "position":
+                    "type": "string"
+                    "description": "The principal position in the field for the player."
+        "404":
+          "description": "Players not found"
+"components":
+  "schemas":
+    "ClubDTO":
+      "type": "object"
+      "properties":
+        "club_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The ID of the club."
+        "name":
+          "type": "string"
+          "description": "The name of the club."
+        "domestic_competition_id":
+          "type": "string"
+          "description": "The ID of the domestic competition the club participates in."
+        "total_market_value":
+          "type": "number"
+          "format": "double"
+          "nullable": true
+          "description": "The total market value of the club."
+        "stadium_name":
+          "type": "string"
+          "description": "The name of the club's stadium."
+        "stadium_seats":
+          "type": "integer"
+          "description": "The number of seats in the club's stadium."
+        "coach_name":
+          "type": "string"
+          "description": "The name of the club's coach."
+        "last_season":
+          "type": "integer"
+          "description": "The last season's performance of the club."
+    "ClubIdAndNameDTO":
+      "type": "object"
+      "properties":
+        "club_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The ID of the club."
+        "name":
+          "type": "string"
+          "description": "The name of the club."
+    "ClubIdNameCompetitionDTO":
+      "type": "object"
+      "properties":
+        "club_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The ID of the club."
+        "name":
+          "type": "string"
+          "description": "The name of the club."
+        "domestic_competition_id":
+          "type": "string"
+          "description": "The ID of the domestic competition the club participates in."
+    "CompetitionDTO":
+        "type": "object"
+        "properties":
+          "competition_id":
+            "type": "integer"
+            "format": "int64"
+            "description": "The ID of the competition."
+          "name":
+            "type": "string"
+            "description": "The name of the competition."
+          "country_id":
+            "type": "string"
+            "description": "The ID of the country where the competition is played."
+          "country_name":
+            "type": "string"
+            "description": "The name of the country where the competition is played."
+          "domestic_league_code":
+            "type": "string"
+            "description": "The code of the domestic league."
+    "CompetitionIdNameCountryDTO":
+        "type": "object"
+        "properties":
+          "competition_id":
+            "type": "integer"
+            "format": "int64"
+            "description": "The ID of the competition."
+          "name":
+            "type": "string"
+            "description": "The name of the competition."
+          "country_name":
+            "type": "string"
+            "description": "The name of the country where the competition is played."
+          "domestic_league_code":
+            "type": "string"
+            "description": "The code of the domestic league."
+    "PlayerDTO":
+      "type": "object"
+      "properties":
+        "player_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The ID of the player."
+        "name":
+          "type": "string"
+          "description": "The name of the player."
+        "last_season":
+          "type": "integer"
+          format: "int64"
+          "description": "The last played season for the player."
+        "current_club_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The current club id for the player."
+        "country_of_citizenship":
+          "type": "string"
+          "description": "The name of the country, the player has the nationality."
+        "date_of_birth":
+          "type": "string"
+          "format": "date"
+          "description": "The date when the player born."
+        "sub_position":
+          "type": "string"
+          "description": "The second type of position in the field for the player."
+        "position":
+          "type": "string"
+          "description": "The principal position in the field for the player."
+        "foot":
+          "type": "string"
+          "description": "The preferred foot to shoot."
+        "height_in_cm":
+          "type": "number"
+          "format": "double"
+          "description": "The height of the layer expressed in cm."
+        "highest_market_value_in_eur":
+          "type": "number"
+          "format": "double"
+          "description": "The heighest market value of the player of all time in eur."
+        "image_url":
+          "type": "string"
+          "description": "An URL containing the player picture."
+        "current_club_name":
+          "type": "string"
+          "description": "The name of the actual club the player is playing with."
+        "contract_expiration":
+          "type": "string"
+          "format": "date"
+          "description": "The date when the contract with the actual club end."
+        "market_value_in_eur":
+          "type": "number"
+          "format": "double"
+          "description": "The current market value of the player expressed in eur."
+    "PlayerIdAndNameDTO":
+      "type": "object"
+      "properties":
+        "player_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The ID of the player."
+        "player_name":
+          "type": "string"
+          "description": "The name of the player."
+    "PlayerIdNameClubDTO":
+      "type": "object"
+      "properties":
+        "player_id":
+          "type": "integer"
+          "format": "int64"
+          "description": "The ID of the player."
+        "player_name":
+          "type": "string"
+          "description": "The name of the player."
+        "club_id":
+          "type": "string"
+          "description": "The ID of club the player is now playing with."
